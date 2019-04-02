@@ -2,6 +2,15 @@
 A restful LevelDB server written in Python3 with asyncio
 
 
+## Quick deployment
+
+Deploy as a daemon on your server:
+
+```
+# docker build . --tag leveldb_http
+# docker run -dit -p 0.0.0.0:<port-you-want>:38081/tcp --restart always leveldb_http:latest
+```
+
 
 ## Usage
 
