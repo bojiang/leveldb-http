@@ -23,7 +23,8 @@ def get_db(name, path=Const.STORE_PATH):
 
 
 class Controller:
-    async def read_entity(request):
+    @classmethod
+    async def read_entity(cls, request):
         namespace = request.match_info.get('namespace', '')
         db = get_db(namespace)
 
@@ -42,8 +43,8 @@ class Controller:
             if start < stop:
                 values = [(k, v) for k, v in db.iterator(start=start, stop=stop)]
             else:
-                values = [(k, v) for k, v in 
-                          db.iterator(start=stop, stop=start, reverse=True, 
+                values = [(k, v) for k, v in
+                          db.iterator(start=stop, stop=start, reverse=True,
                                       include_start=False, include_stop=True)]
 
             values = [(k.decode('utf8'), v and v.decode('utf8') or v) for k, v in values]
@@ -69,8 +70,8 @@ class Controller:
 
         return web.HTTPBadRequest()
 
-
-    async def put_entity(request):
+    @classmethod
+    async def put_entity(cls, request):
 
         namespace = request.match_info.get('namespace', '')
         data = await request.post()
@@ -82,7 +83,7 @@ class Controller:
         return web.HTTPOk()
 
     @classmethod
-    def serve_app(cls, port=80, host="0.0.0.0", debug=False, Const=Const):
+    def serve_app(cls, port=80, host="0.0.0.0", debug=False):
         app = web.Application()
         app.add_routes([
             web.get('/{namespace}', cls.read_entity),
