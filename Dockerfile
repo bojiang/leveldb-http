@@ -5,7 +5,7 @@ RUN true \
   && mkdir -p /opt/leveldb_http \
   && chown 405 /opt/leveldb_http \
   && apk add --no-cache --virtual .build-deps gcc g++ musl-dev \
-  && apk --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --update add leveldb leveldb-dev \
+  && apk --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community/ --update add leveldb leveldb-dev \
   && pip install pipenv
 
 ADD . /opt/leveldb_http/
